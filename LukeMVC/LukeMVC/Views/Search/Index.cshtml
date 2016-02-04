@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Search";
+
+    ESVTest.Classes.esvWrapper search = new ESVTest.Classes.esvWrapper("", "", "");
+    search.Passage = "";
+            
+    if(IsPost)
+    {
+        search = new ESVTest.Classes.esvWrapper("passageQuery", Request["txtSearch"].ToString(), "HTML");        
+    }
+}
+
+@model IEnumerable<LukeMVC.Models.Note>
+
+    <h2>Search</h2>
+@{
+    if (IsPost)
+    {
+        <a href="#" onclick="test()" style="width:45px;" title="Create Note"><h2>+</h2></a>
+    }
+}
+    <div id="searchContainer">
+        <form id="frmSearch" action="" method="post">
+            <input type="text" name="txtSearch" />
+            <input type="submit" value="Search" />            
+        </form>
+        <div class="row">
+            <div class="col-sm-8 blog-main">
+                <div class="blog-post">
+                    <div id="searchResults">
+                        @Html.Raw(search.getESVPassage())
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+                <div class="sidebar-module sidebar-module-inset">
+                    <div id="notes">
+                        @foreach (var item in Model)
+                        {
+                            <div class="row">
+                                <h3>@Html.DisplayFor(modelItem => item.note_title)</h3>
+                                @Html.DisplayFor(modelItem => item.passage)
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="NewNote"></div>
+
+
+
+
+<script type="text/javascript">
+
+    function test() {
+        
+        $("#NewNote").dialog({
+                    autoOpen: true,
+                    position: { my: "center", at: "top+350", of: window },
+                    width: 1000,
+                    resizable: false,
+                    title: 'Add a Note',
+                    modal: true,
+                    open: function () {
+                        $(this).load('@Url.Action("Create", "Notes")');
+                    },
+                    buttons: {
+                        Cancel: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+    }
+</script>
+
+
+

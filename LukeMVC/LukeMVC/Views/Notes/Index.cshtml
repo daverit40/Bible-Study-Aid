@@ -1,0 +1,53 @@
+﻿@model IEnumerable<LukeMVC.Models.Note>
+
+@{
+    ViewBag.title = "Notes";
+    }
+
+@*<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>*@
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.passage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.note_title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note_Type.note_type_description)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.passage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.note_title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note_Type.note_type_description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.note_id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.note_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.note_id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+@*</body>
+</html>*@

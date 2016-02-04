@@ -1,0 +1,21 @@
+﻿@model IEnumerable<LukeMVC.Models.verse_category>
+
+
+@{
+    List<string> cssClasses = new List<string>();
+    
+    if  (Model != null || Model. > 0 )
+    {
+        foreach(var item in Model)
+        {
+            var className = item.verse_category_name;
+    
+            string cssClass = "." + className + "{color:" + item.text_color_code + ";}";
+            cssClasses.Add(cssClass);
+    
+        }
+    }    
+}
+
+
+@cssClasses.ToString();

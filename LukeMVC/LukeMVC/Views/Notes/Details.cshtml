@@ -1,0 +1,56 @@
+﻿@model LukeMVC.Models.Note
+
+@{
+    ViewBag.title = "Notes";
+}
+    <div>
+        <h4>Note</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.passage)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.passage)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.note_body)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.note_body)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.user)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.user)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.modified)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.modified)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Note_Type.note_type_description)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Note_Type.note_type_description)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.note_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+

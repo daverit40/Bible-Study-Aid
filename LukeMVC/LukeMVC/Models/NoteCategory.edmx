@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Luke2432Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Note_Type">
+          <Key>
+            <PropertyRef Name="note_type_id" />
+          </Key>
+          <Property Name="note_type_id" Type="int" Nullable="false" />
+          <Property Name="note_type_description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notes">
+          <Key>
+            <PropertyRef Name="note_id" />
+          </Key>
+          <Property Name="note_id" Type="int" Nullable="false" />
+          <Property Name="note_type_id" Type="int" Nullable="false" />
+          <Property Name="note_title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="passage" Type="varchar" MaxLength="50" />
+          <Property Name="note_body" Type="varchar(max)" Nullable="false" />
+          <Property Name="user" Type="nchar" MaxLength="10" />
+          <Property Name="modified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="verse_category">
+          <Key>
+            <PropertyRef Name="verse_category_id" />
+          </Key>
+          <Property Name="verse_category_id" Type="int" Nullable="false" />
+          <Property Name="verse_category_name" Type="varchar" MaxLength="50" />
+          <Property Name="verse_category_description" Type="varchar" MaxLength="250" />
+          <Property Name="text_color_name" Type="varchar" MaxLength="25" />
+          <Property Name="text_color_code" Type="varchar" MaxLength="7" />
+          <Property Name="text_size" Type="varchar" MaxLength="10" />
+          <Property Name="text_bold" Type="varchar" MaxLength="1" />
+          <Property Name="background_color_name" Type="varchar" MaxLength="50" />
+          <Property Name="background_color_code" Type="varchar" MaxLength="7" />
+          <Property Name="active" Type="varchar" MaxLength="1" />
+          <Property Name="css_class_name" Type="varchar" MaxLength="25" />
+          <Property Name="user_id" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="verse_category_log">
+          <Key>
+            <PropertyRef Name="verse_id" />
+            <PropertyRef Name="verse_category_id" />
+          </Key>
+          <Property Name="verse_id" Type="int" Nullable="false" />
+          <Property Name="verse_category_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Notes_Note_type">
+          <End Role="Note_Type" Type="Self.Note_Type" Multiplicity="1" />
+          <End Role="Notes" Type="Self.Notes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Note_Type">
+              <PropertyRef Name="note_type_id" />
+            </Principal>
+            <Dependent Role="Notes">
+              <PropertyRef Name="note_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_verse_category_to_log">
+          <End Role="verse_category" Type="Self.verse_category" Multiplicity="1" />
+          <End Role="verse_category_log" Type="Self.verse_category_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="verse_category">
+              <PropertyRef Name="verse_category_id" />
+            </Principal>
+            <Dependent Role="verse_category_log">
+              <PropertyRef Name="verse_category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Luke2432ModelStoreContainer">
+          <EntitySet Name="Note_Type" EntityType="Self.Note_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="verse_category" EntityType="Self.verse_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="verse_category_log" EntityType="Self.verse_category_log" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Notes_Note_type" Association="Self.FK_Notes_Note_type">
+            <End Role="Note_Type" EntitySet="Note_Type" />
+            <End Role="Notes" EntitySet="Notes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_verse_category_to_log" Association="Self.FK_verse_category_to_log">
+            <End Role="verse_category" EntitySet="verse_category" />
+            <End Role="verse_category_log" EntitySet="verse_category_log" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Luke2432Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Luke2432Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Note_Type" EntityType="Luke2432Model.Note_Type" />
+          <EntitySet Name="Notes" EntityType="Luke2432Model.Note" />
+          <AssociationSet Name="FK_Notes_Note_type" Association="Luke2432Model.FK_Notes_Note_type">
+            <End Role="Note_Type" EntitySet="Note_Type" />
+            <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <EntitySet Name="verse_category" EntityType="Luke2432Model.verse_category" />
+          <EntitySet Name="verse_category_log" EntityType="Luke2432Model.verse_category_log" />
+          <AssociationSet Name="FK_verse_category_to_log" Association="Luke2432Model.FK_verse_category_to_log">
+            <End Role="verse_category" EntitySet="verse_category" />
+            <End Role="verse_category_log" EntitySet="verse_category_log" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Note_Type">
+          <Key>
+            <PropertyRef Name="note_type_id" />
+          </Key>
+          <Property Name="note_type_id" Type="Int32" Nullable="false" />
+          <Property Name="note_type_description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Notes" Relationship="Luke2432Model.FK_Notes_Note_type" FromRole="Note_Type" ToRole="Note" />
+        </EntityType>
+        <EntityType Name="Note">
+          <Key>
+            <PropertyRef Name="note_id" />
+          </Key>
+          <Property Name="note_id" Type="Int32" Nullable="false" />
+          <Property Name="note_type_id" Type="Int32" Nullable="false" />
+          <Property Name="note_title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="passage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="note_body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="user" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Note_Type" Relationship="Luke2432Model.FK_Notes_Note_type" FromRole="Note" ToRole="Note_Type" />
+        </EntityType>
+        <Association Name="FK_Notes_Note_type">
+          <End Type="Luke2432Model.Note_Type" Role="Note_Type" Multiplicity="1" />
+          <End Type="Luke2432Model.Note" Role="Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Note_Type">
+              <PropertyRef Name="note_type_id" />
+            </Principal>
+            <Dependent Role="Note">
+              <PropertyRef Name="note_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="verse_category">
+          <Key>
+            <PropertyRef Name="verse_category_id" />
+          </Key>
+          <Property Name="verse_category_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="verse_category_log" Relationship="Luke2432Model.FK_verse_category_to_log" FromRole="verse_category" ToRole="verse_category_log" />
+          <Property Name="verse_category_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="text_color_name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="text_color_code" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="text_size" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="text_bold" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="background_color_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="background_color_code" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="css_class_name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="verse_category_description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="verse_category_log">
+          <Key>
+            <PropertyRef Name="verse_id" />
+            <PropertyRef Name="verse_category_id" />
+          </Key>
+          <Property Name="verse_id" Type="Int32" Nullable="false" />
+          <Property Name="verse_category_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="verse_category" Relationship="Luke2432Model.FK_verse_category_to_log" FromRole="verse_category_log" ToRole="verse_category" />
+        </EntityType>
+        <Association Name="FK_verse_category_to_log">
+          <End Type="Luke2432Model.verse_category" Role="verse_category" Multiplicity="1" />
+          <End Type="Luke2432Model.verse_category_log" Role="verse_category_log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="verse_category">
+              <PropertyRef Name="verse_category_id" />
+            </Principal>
+            <Dependent Role="verse_category_log">
+              <PropertyRef Name="verse_category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Luke2432ModelStoreContainer" CdmEntityContainer="Luke2432Entities">
+          <EntitySetMapping Name="Note_Type">
+            <EntityTypeMapping TypeName="Luke2432Model.Note_Type">
+              <MappingFragment StoreEntitySet="Note_Type">
+                <ScalarProperty Name="note_type_description" ColumnName="note_type_description" />
+                <ScalarProperty Name="note_type_id" ColumnName="note_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notes">
+            <EntityTypeMapping TypeName="Luke2432Model.Note">
+              <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="note_body" ColumnName="note_body" />
+                <ScalarProperty Name="passage" ColumnName="passage" />
+                <ScalarProperty Name="note_title" ColumnName="note_title" />
+                <ScalarProperty Name="note_type_id" ColumnName="note_type_id" />
+                <ScalarProperty Name="note_id" ColumnName="note_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="verse_category">
+            <EntityTypeMapping TypeName="Luke2432Model.verse_category">
+              <MappingFragment StoreEntitySet="verse_category">
+                <ScalarProperty Name="verse_category_description" ColumnName="verse_category_description" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="css_class_name" ColumnName="css_class_name" />
+                <ScalarProperty Name="background_color_code" ColumnName="background_color_code" />
+                <ScalarProperty Name="background_color_name" ColumnName="background_color_name" />
+                <ScalarProperty Name="text_bold" ColumnName="text_bold" />
+                <ScalarProperty Name="text_size" ColumnName="text_size" />
+                <ScalarProperty Name="text_color_code" ColumnName="text_color_code" />
+                <ScalarProperty Name="text_color_name" ColumnName="text_color_name" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="verse_category_name" ColumnName="verse_category_name" />
+                <ScalarProperty Name="verse_category_id" ColumnName="verse_category_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="verse_category_log">
+            <EntityTypeMapping TypeName="Luke2432Model.verse_category_log">
+              <MappingFragment StoreEntitySet="verse_category_log">
+                <ScalarProperty Name="verse_category_id" ColumnName="verse_category_id" />
+                <ScalarProperty Name="verse_id" ColumnName="verse_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

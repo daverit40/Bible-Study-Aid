@@ -1,0 +1,141 @@
+﻿@model LukeMVC.Models.SearchResultsModel
+
+<div id="searchResults">
+    <h2>Search</h2>
+    <form id="frmSearch" action="" method="post">
+        <input type="text" name="txtSearch" />
+        <input type="submit" value="Search" />
+    </form> 
+    @{if (Model.verses.Count > 0)
+        {
+            <h3><a href="#" onclick="addNote()" style="width:45px;" title="Create Note">+</a> 
+    @*- <a href="#" onclick="categorize()" style="width:45px;" title="Create Note">Categorize Verses</a>*@</h3>
+        }
+    }
+
+    <h2>@Model.chapter</h2>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+            <div class="blog-post">
+                @foreach(var verse in @Model.verses)
+                {
+                    String chkId = "chk" + verse.unitId.ToString();
+                    
+                    <table>
+                        <tr>
+                            @*<td valign="top">
+                                <input type="checkbox" id="@chkId" />
+                            </td>*@
+                            <td>
+                                <p id="@verse.unitId" class="@(verse.cssClass)">
+                                    @verse.verseNumber . @verse.verseText
+                                </p>
+                            </td>
+                            <td valign="top">
+                                
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+            <div class="sidebar-module sidebar-module-inset">
+                <div id="notes">
+                    @foreach (var item in ViewBag.Notes)
+                    {
+                        <div class="row">
+                            <h3>@item.note_title</h3>
+                            @item.passage
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="NewNote"></div>
+<div id="Categorize">
+</div>
+
+<script type="text/javascript"> 
+
+    $('p').bind('click', function ()
+    {
+        categorize(this.id);
+
+    })
+
+
+    $('p').bind("mouseenter mouseleave", function () {
+        $(this).toggleClass("hover")
+    })
+
+    function addNote() {
+        $("#NewNote").dialog({
+            autoOpen: true,
+            position: { my: "center", at: "top+350", of: window },
+            width: 1000,
+            resizable: false,
+            title: 'Add a Note',
+            modal: true,
+            open: function () {
+                $(this).load('@Url.Action("Create", "Notes")');
+            },
+            buttons: {
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    function categorize(verseId) {
+        // alert('my verse id: ' + verseId);
+        var verse = verseId;
+
+        $("#Categorize").dialog({
+            autoOpen: true,
+            position: { my: "center", at: "top+250", of: window },
+            width: 500,
+            resizable: false,
+            title: 'Categorize Verse(s)',
+            data: this.verseId,
+            modal: true,
+            open: function () {
+                $(this).load('@Url.Action("listVerseCats", "verse_category")');
+            },
+            buttons: {
+                Ok: function () { save(verseId); },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    function save(unitId) {
+        var val = $('#verseCatList').val();
+
+        $.ajax({
+            url: '/verseLog/SaveVerseLog?verseId=' + unitId + '&verseCatId=' + val,
+            type: 'POST',
+            data: { verse_id: unitId, verse_category_id: '1' },
+            success: function (result) {
+                alert('Save was successful');
+                $("#Categorize").dialog("close");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('error: ' + errorThrown);
+            }
+        });
+        return false;
+    }
+</script>
+
+<hr />
+<p>Scripture taken from The Holy Bible, English Standard Version. Copyright &copy;2001 by <a href="http://www.crosswaybibles.org">Crossway Bibles</a>, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Text provided by the <a href="http://www.gnpcb.org/esv/share/services/">Crossway Bibles Web Service</a>.</p>
+<p>Scripture quotations marked &quot;ESV&quot; are taken from The Holy Bible, English Standard Version. Copyright &copy;2001 by <a href="http://www.crosswaybibles.org">Crossway Bibles</a>, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Text provided by the <a href="http://www.gnpcb.org/esv/share/services/">Crossway Bibles Web Service</a>.</p>
+<p>All Scripture quotations, unless otherwise indicated, are taken from The Holy Bible, English Standard Version. Copyright &copy;2001 by <a href="http://www.crosswaybibles.org">Crossway Bibles</a>, a publishing ministry of Good News Publishers. Used by permission. All rights reserved. Text provided by the <a href="http://www.gnpcb.org/esv/share/services/">Crossway Bibles Web Service</a>.</p>

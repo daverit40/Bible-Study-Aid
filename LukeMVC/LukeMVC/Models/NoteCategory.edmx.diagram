@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5e3ccd2c146142b5a1bb70a3e0aea72f" Name="Diagram1">
+        <EntityTypeShape EntityType="Luke2432Model.Note_Type" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Luke2432Model.Note" Width="1.5" PointX="5.75" PointY="1" />
+        <AssociationConnector Association="Luke2432Model.FK_Notes_Note_type" />
+        <EntityTypeShape EntityType="Luke2432Model.verse_category" Width="2" PointX="0.5" PointY="4.25" />
+        <EntityTypeShape EntityType="Luke2432Model.verse_category_log" Width="1.875" PointX="4.375" PointY="5" />
+        <AssociationConnector Association="Luke2432Model.FK_verse_category_to_log" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

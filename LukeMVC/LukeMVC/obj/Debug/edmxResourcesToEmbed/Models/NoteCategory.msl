@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Luke2432ModelStoreContainer" CdmEntityContainer="Luke2432Entities">
+    <EntitySetMapping Name="Note_Type">
+      <EntityTypeMapping TypeName="Luke2432Model.Note_Type">
+        <MappingFragment StoreEntitySet="Note_Type">
+          <ScalarProperty Name="note_type_description" ColumnName="note_type_description" />
+          <ScalarProperty Name="note_type_id" ColumnName="note_type_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notes">
+      <EntityTypeMapping TypeName="Luke2432Model.Note">
+        <MappingFragment StoreEntitySet="Notes">
+          <ScalarProperty Name="modified" ColumnName="modified" />
+          <ScalarProperty Name="user" ColumnName="user" />
+          <ScalarProperty Name="note_body" ColumnName="note_body" />
+          <ScalarProperty Name="passage" ColumnName="passage" />
+          <ScalarProperty Name="note_title" ColumnName="note_title" />
+          <ScalarProperty Name="note_type_id" ColumnName="note_type_id" />
+          <ScalarProperty Name="note_id" ColumnName="note_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="verse_category">
+      <EntityTypeMapping TypeName="Luke2432Model.verse_category">
+        <MappingFragment StoreEntitySet="verse_category">
+          <ScalarProperty Name="verse_category_description" ColumnName="verse_category_description" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="css_class_name" ColumnName="css_class_name" />
+          <ScalarProperty Name="background_color_code" ColumnName="background_color_code" />
+          <ScalarProperty Name="background_color_name" ColumnName="background_color_name" />
+          <ScalarProperty Name="text_bold" ColumnName="text_bold" />
+          <ScalarProperty Name="text_size" ColumnName="text_size" />
+          <ScalarProperty Name="text_color_code" ColumnName="text_color_code" />
+          <ScalarProperty Name="text_color_name" ColumnName="text_color_name" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="verse_category_name" ColumnName="verse_category_name" />
+          <ScalarProperty Name="verse_category_id" ColumnName="verse_category_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="verse_category_log">
+      <EntityTypeMapping TypeName="Luke2432Model.verse_category_log">
+        <MappingFragment StoreEntitySet="verse_category_log">
+          <ScalarProperty Name="verse_category_id" ColumnName="verse_category_id" />
+          <ScalarProperty Name="verse_id" ColumnName="verse_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

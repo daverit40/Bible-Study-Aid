@@ -1,0 +1,14 @@
+﻿@model IEnumerable<LukeMVC.Models.verse_category>
+
+@{
+    ViewBag.Title = "";
+}
+
+    <h3>Selet a Category for this verse:</h3>
+    <select id="verseCatList" class="form-control">
+    @foreach (var cat in Model)
+    {
+        <option value="@cat.verse_category_id">@cat.verse_category_name</option>    
+    }
+
+    </select>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<LukeMVC.Models.Note_Type>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.note_type_description)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.note_type_description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.note_type_id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.note_type_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.note_type_id })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
